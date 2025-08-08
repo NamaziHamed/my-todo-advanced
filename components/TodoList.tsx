@@ -4,8 +4,13 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { deleteTodo, getTodos, toggleCompleted } from "@/prisma/lib";
 import { Trash2, Pencil, Square, SquareCheckBig } from "lucide-react";
 
+
+// Component: TodoList
 const TodoList = ({ handleToggle, setInitialValue }: any) => {
+  // QueryClient: For invalidating queries
   const queryClient = useQueryClient();
+
+  // Mutation: Toggle todo completion status
   const { mutate: toggleMutate, isPending } = useMutation({
     mutationFn: ({ id, current }: { id: number; current: boolean }) =>
       toggleCompleted(id, !current),
@@ -14,11 +19,13 @@ const TodoList = ({ handleToggle, setInitialValue }: any) => {
     },
   });
 
+  // Mutation: Delete todo
   const { mutate: deleteMutate } = useMutation({
     mutationFn: ({ id }: { id: number }) => deleteTodo(id),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
   });
 
+  // Query: Fetch todos
   const {
     data: todos,
     isLoading,
@@ -28,13 +35,17 @@ const TodoList = ({ handleToggle, setInitialValue }: any) => {
     queryFn: getTodos,
   });
 
+  // Render: Loading state
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
+  // Render: Error state
   if (error) {
     return <div className="text-red-500">Error loading Todos</div>;
   }
 
+  // Render: Todos list
   return (
     <ul className="flex flex-col justify-between gap-2">
       {todos.map((todo: any) => (

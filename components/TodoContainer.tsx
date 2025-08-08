@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import TodoList from "./TodoList";
 import TodoAddBtn from "./TodoAddBtn";
-import AddTodo from "./AddTodo";
+import AddTodo, { TodoSchema } from "./AddTodo";
 import { TodoProps } from "@/types/TodoTypes";
 
 const TodoContainer = () => {
@@ -17,8 +17,8 @@ const TodoContainer = () => {
   };
 
   return (
-    <div className="max-w-fit ">
-      <div className="flex items-center justify-between mb-4">
+    <div className="flex-1 max-w-fit">
+      <div className="flex items-center justify-between mb-4 p-3">
         <h2 className="title">Todos:</h2>
         <TodoAddBtn handleToggle={handleToggle} />
       </div>

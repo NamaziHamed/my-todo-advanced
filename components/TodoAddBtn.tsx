@@ -1,7 +1,6 @@
 "use client";
 import { PlusCircle } from "lucide-react";
 import React, { useState } from "react";
-import AddTodo from "./AddTodo";
 
 const TodoAddBtn = ({ handleToggle }: { handleToggle: () => void }) => {
   return (
